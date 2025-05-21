@@ -15,13 +15,13 @@ export function useAutocomplete(query: string) {
 
             const response = await axios.get('https://652f91320b8d8ddac0b2b62b.mockapi.io/autocomplete');
 
-            const filtered = response.data.filter((item: any) =>
+            const filtered = response.data.filter((item) =>
                 item.name.toLowerCase().includes(query.toLowerCase()) ||
                 item.category.toLowerCase().includes(query.toLowerCase())
             );
 
 
-            return filtered.map((item: any) => ({
+            return filtered.map((item) => ({
                 label: item.name,
                 value: item.value,
                 id: item.id,

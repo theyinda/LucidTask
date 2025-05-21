@@ -4,9 +4,9 @@ import type { Token } from '../types/formula';
 
 interface FormulaState {
     tokens: Token[];
-    addToken: (token: Omit<Token, 'id'>) => void;
+    addToken: (token) => void;
     removeToken: (id: string) => void;
-    updateToken: (id: string, newToken: Partial<Token>) => void;
+    updateToken: (id: string, newToken) => void;
     clearTokens: () => void;
 }
 

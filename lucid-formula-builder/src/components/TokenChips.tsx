@@ -9,6 +9,7 @@ interface Props {
     token: Token;
 }
 
+
 const getColorByType = (type: Token['type']) => {
     switch (type) {
         case 'tag':
@@ -24,10 +25,21 @@ const getColorByType = (type: Token['type']) => {
 
 
 const TokenChip: React.FC<Props> = ({ token }) => {
+
+    // Display label depending on token type
+    let label = '';
+
+    if (token.type === 'tag') {
+        label = token.label;  // safe to access label here
+    } else if (token.type === 'number') {
+        label = token.value.toString();
+    } else if (token.type === 'operator') {
+        label = token.value;
+    }
     const { removeToken, updateToken } = useFormulaStore();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [editAnchorEl, setEditAnchorEl] = useState<null | HTMLElement>(null);
-    const [editValue, setEditValue] = useState(token.label);
+    const [editValue, setEditValue] = useState(label);
 
     const open = Boolean(anchorEl);
     const editOpen = Boolean(editAnchorEl);
@@ -83,7 +95,7 @@ const TokenChip: React.FC<Props> = ({ token }) => {
             </Box>
         );
     }
-    return <Chip label={token.label} sx={{ mr: 1 }} color={getColorByType(token.type)} />;
+    return <Chip label={label} sx={{ mr: 1 }} color={getColorByType(token.type)} />;
 };
 
 export default TokenChip;
